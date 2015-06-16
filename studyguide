@@ -1,0 +1,121 @@
+Cisco Study Guide
+By: Chris Rocheleau
+Version 1.0
+
+VLANS
+
+	Making VLANs
+
+		conf t
+		vlan (VLAN ID)
+		name (VLAN name)
+		end
+
+	Assigning a Port to a VLAN
+
+		conf t
+		int (interface)
+		switchport mode access
+		switchport mode access vlan (vlan id)
+		end
+
+	Remove VLAN assignment
+
+		conf t
+		no switchport mode access vlan (vlan id)
+		end
+
+	Trunk Configuration
+
+		conf t
+		int (interface)
+		switchport mode trunk
+		switchport trunk native vlan (vlan id)
+		switchport allowed vlan (vlan id)
+		end
+
+	Inter-VLAN Routing
+
+		int g0/0.(SUBINTERFACE)
+		encapsulation dot1q (SUBINTERFACE)
+		ip address (ip address)
+
+
+DHCP
+
+	Excluded Addresses
+
+		ip dhcp excluded-address (low ip) - (high ip)
+
+	OR
+
+		ip dhcp excluded-address (ip)
+
+	Making a Pool
+
+		ip dhcp pool (name)
+		network (network address and subnet)
+		default-router (ip address)
+		dns-server (ip address, if applicable)
+		domain-name (URL, if applicable)
+
+	IP Helper Address
+
+		int (interface)
+		ip helper-address (ip address)
+		end
+
+
+ACL's
+
+	About ACL's
+
+		Extended ACLs should be placed as close as possible to the source of the traffic it will be filtering. This way, 
+		
+		undesirable traffic is denied early on and the traffic will not have to pass the network infrastructure.
+		
+		Standard ACLs should be placed as close to the destination as possible, placing a standard ACL at the source of the 
+		
+		traffice will effectivly block that traffic from reaching any other devices on network. This is because standard 
+		
+		ACLs do not specify a destination address.
+
+	Configuring ACLs
+
+		Standard ACLs
+
+			access-list (interface) (permit or deny) (ip address) (subnet mask) 
+
+		Extended ACLs
+
+			access-list (port number) (deny/permit) (protocol) (source) (wildcard)
+
+
+NAT
+
+	STATIC
+
+		ip nat (inside/outside) (source) (static ip) (local/global)
+
+	INSIDE
+
+		int (interface)
+		ip nat inside
+
+	OUTSIDE
+
+		int (interface)
+		ip nat outside
+
+	DYNAMIC NAT
+
+		ip nat pool (name) (start ip) (end ip) (netmask) (prefix)
+		access-list (ACL number) (permit or deny) (source) (wildcard)
+
+
+IOS Image
+
+		show version
+		show flash
+		show vlan
+		show ip protocol
